@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+
+      body{
+        background: #f6f6fb;
+      }
+      canvas {
+        border: 1px solid black;
+      }
+      .invisible {
+        display: none;
+      }
+      .text-center {
+        text-align: center;
+      }
+      div {
+        margin: 10px;
+      }
+      .center-block {
+        display: block;
+        margin: auto;
+      }
+      label {
+        padding-right: 10px;
+        width: 25%;
+        vertical-align: top;
+        font: 16px 'Lucida Grande', sans-serif;
+      }
+
+      .rounded {
+        border-radius: 50px;
+        border: 0px;
+        background: #ffffff;
+        box-shadow:  32px 32px 64px #bdbdbd,
+                     -32px -32px 64px #ffffff;
+      }
+    </style>
+    <title></title>
+  </head>
+  <body>
+    <div class="center-block text-center">
+      <h1>Un vistazo a la IA</h1>
+    </div>
+    <div id="container">
+      <canvas class="center-block rounded" style="margin-top: 50px;" id="canvasOutput" width=320 height=240></canvas>
+    </div>
+    <div class="text-center rounded" style="margin-top: 50px; margin-right: 30%; margin-left: 30%; padding-top:10px; padding-bottom:10px;">
+        <legend style="margin-bottom: 10px;">Elige un una opción:</legend>
+        <input type="radio" id="face" name="cascade" value="face" checked>
+        <label for="face">Rostro</label>
+        <input type="radio" id="eye" name="cascade" value="eye">
+        <label for="eye">Ojos</label>
+        <input type="radio" id="smile" name="cascade" value="smile">
+        <label for="smile">Boca</label>
+    </div>
+    <div class="invisible">
+      <video id="video" class="hidden">Your browser does not support the video tag.</video>
+    </div>
+  </div>
+  </body>
+  <script src="js/utils.js"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="https://threejs.org/examples/js/libs/stats.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script>
+  <script>
+    var Module = {
+       wasmBinaryFile: 'https://huningxin.github.io/opencv.js/build/wasm/opencv_js.wasm',
+      preRun: [function() {
+        Module.FS_createPreloadedFile('/', 'haarcascade_eye.xml', 'https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_eye.xml', true, false);
+        Module.FS_createPreloadedFile('/', 'haarcascade_frontalface_default.xml', 'https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_default.xml', true, false);
+        Module.FS_createPreloadedFile('/', 'haarcascade_profileface.xml', 'https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_profileface.xml', true, false);
+        Module.FS_createPreloadedFile('/', 'haarcascade_smile.xml', 'https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_smile.xml', true, false);
+      }],
+      _main: function() {opencvIsReady();}
+    };
+  </script>
+  <script async src="https://huningxin.github.io/opencv.js/build/wasm/opencv.js"></script>
+</html>
